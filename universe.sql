@@ -44,6 +44,42 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: earth; Type: TABLE; Schema: public; Owner: freecodecamp
+--
+
+CREATE TABLE public.earth (
+    earth_id integer NOT NULL,
+    name character varying(15) NOT NULL,
+    no_of_earth integer,
+    color text
+);
+
+
+ALTER TABLE public.earth OWNER TO freecodecamp;
+
+--
+-- Name: earth_earth_id_seq; Type: SEQUENCE; Schema: public; Owner: freecodecamp
+--
+
+CREATE SEQUENCE public.earth_earth_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.earth_earth_id_seq OWNER TO freecodecamp;
+
+--
+-- Name: earth_earth_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
+--
+
+ALTER SEQUENCE public.earth_earth_id_seq OWNED BY public.earth.earth_id;
+
+
+--
 -- Name: galaxy; Type: TABLE; Schema: public; Owner: freecodecamp
 --
 
@@ -194,6 +230,13 @@ ALTER SEQUENCE public.star_s_id_seq OWNED BY public.star.star_id;
 
 
 --
+-- Name: earth earth_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.earth ALTER COLUMN earth_id SET DEFAULT nextval('public.earth_earth_id_seq'::regclass);
+
+
+--
 -- Name: galaxy galaxy_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
 --
 
@@ -219,6 +262,15 @@ ALTER TABLE ONLY public.planet ALTER COLUMN planet_id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.star_s_id_seq'::regclass);
+
+
+--
+-- Data for Name: earth; Type: TABLE DATA; Schema: public; Owner: freecodecamp
+--
+
+INSERT INTO public.earth VALUES (1, 'E', NULL, NULL);
+INSERT INTO public.earth VALUES (2, 'Fd', NULL, NULL);
+INSERT INTO public.earth VALUES (3, 'go', NULL, NULL);
 
 
 --
@@ -295,6 +347,13 @@ INSERT INTO public.star VALUES (6, 'Pfo', 5, NULL, NULL);
 
 
 --
+-- Name: earth_earth_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
+--
+
+SELECT pg_catalog.setval('public.earth_earth_id_seq', 3, true);
+
+
+--
 -- Name: galaxy_g_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
@@ -320,6 +379,22 @@ SELECT pg_catalog.setval('public.planet_p_id_seq', 15, true);
 --
 
 SELECT pg_catalog.setval('public.star_s_id_seq', 6, true);
+
+
+--
+-- Name: earth earth_earth_id_key; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.earth
+    ADD CONSTRAINT earth_earth_id_key UNIQUE (earth_id);
+
+
+--
+-- Name: earth earth_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.earth
+    ADD CONSTRAINT earth_pkey PRIMARY KEY (earth_id);
 
 
 --
@@ -399,7 +474,7 @@ ALTER TABLE ONLY public.moon
 --
 
 ALTER TABLE ONLY public.planet
-    ADD CONSTRAINT planet_star_id_fkey FOREIGN KEY (star_id) REFERENCES public.planet(planet_id);
+    ADD CONSTRAINT planet_star_id_fkey FOREIGN KEY (star_id) REFERENCES public.star(star_id);
 
 
 --
